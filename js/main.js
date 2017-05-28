@@ -6,7 +6,7 @@ var deltaTime;//两帧间隔
 var bgImg=new Image();
 
 var ane;
-
+var fruit;
 document.body.onload=game;
 function game() {
     // console.log("load");
@@ -28,6 +28,9 @@ function init() {
 
     ane=new aneObj();//全局
     ane.init();
+
+    fruit=new fruitObj();
+    fruit.init();
 }
 function gameloop() {
     //当前绘制完成后，根据机器配置设置适用的（动态间隔）来循环绘制，比setinterval，settimeout更科学
@@ -40,5 +43,6 @@ function gameloop() {
 
     drawBackground();//背景循环绘制？
     ane.draw();
+    fruit.draw();
     // console.log(deltaTime);
 }
