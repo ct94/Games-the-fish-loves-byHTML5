@@ -26,9 +26,9 @@ function randomColor() {
 }
 
 
-function lerpAngle(a, b, t) {
+function lerpAngle(a, b, t) {//目标值，当前值，t越大 越慢
 	var d = b - a;
-	if (d > Math.PI) d = d - 2 * Math.PI;
+	if (d > Math.PI) d = d - 2 * Math.PI;//2Pi
 	if (d < -Math.PI) d = d + 2 * Math.PI;
 	return a + d * t;
 }

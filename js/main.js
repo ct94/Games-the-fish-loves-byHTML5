@@ -1,5 +1,5 @@
 var can1,can2,ctx1,ctx2;
-
+var canWidth,canHeight;
 var lastTime;//上一帧的执行时间
 var deltaTime;//两帧间隔
 
@@ -7,6 +7,8 @@ var bgImg=new Image();
 
 var ane;
 var fruit;
+var mom;
+
 document.body.onload=game;
 function game() {
     // console.log("load");
@@ -22,8 +24,10 @@ function init() {
     can2=document.getElementById("canvas2");//bg ane fruit
     ctx2=can2.getContext("2d");
 
+    can1.addEventListener("mousemove",onMouseMove,false);
+
     bgImg.src="./src/background.jpg";
-    canWidth=can1.width;
+    canWidth=can1.width;//全局？
     canHeight=can1.height;
 
     ane=new aneObj();//全局
@@ -31,6 +35,9 @@ function init() {
 
     fruit=new fruitObj();
     fruit.init();
+
+    mom=new momObj();
+    mom.init();
 }
 function gameloop() {
     //当前绘制完成后，根据机器配置设置适用的（动态间隔）来循环绘制，比setinterval，settimeout更科学
@@ -44,5 +51,16 @@ function gameloop() {
     drawBackground();//背景循环绘制？
     ane.draw();
     fruit.draw();
+    numMonitor();
+
+    ctx1.clearRect(0,0,canWidth,canHeight);
+    mom.draw();
     // console.log(deltaTime);
+}
+function onMouseMove(e) {//特定函数
+    if(e.offsetX||e.layerX){
+        mx=e.offsetX?e.layerX:e.layerX;//e.offsetX是否存在  全局 mom.js脚本也用
+        my=e.offsetY?e.layerY:e.layerY;
+        console.log("mouse:"+mx+","+my);
+    }
 }
