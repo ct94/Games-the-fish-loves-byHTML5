@@ -36,7 +36,7 @@ fruitObj.prototype.draw=function () {
     for(var i=0;i<this.num;i++) {
         if(this.alive[i]){
             //产生，由小变大
-            if(this.large[i]<=20){
+            if(this.large[i]<=18){
                 this.large[i]+=this.speed[i]*deltaTime;//平均 因为间隔不固定
             }
             //到了此大小，上漂
@@ -67,7 +67,9 @@ fruitObj.prototype.born=function (i) {
     this.y[i]=canHeight-ane.len[aneId];
     this.alive[i]=true;
 };
-
+fruitObj.prototype.dead=function (i) {
+    this.alive[i]=false;
+};
 function numMonitor(){
     var aliveNum=0;
     for(var i=0;i<fruit.num;i++){//this or fruit?监视main中的fruit

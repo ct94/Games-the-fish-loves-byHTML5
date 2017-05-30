@@ -9,6 +9,9 @@ var ane;
 var fruit;
 var mom;
 
+// var mx;//TODO bug
+// var my;//TODO bug
+var baby;
 document.body.onload=game;
 function game() {
     // console.log("load");
@@ -38,6 +41,11 @@ function init() {
 
     mom=new momObj();
     mom.init();
+
+    baby=new babyObj();
+    baby.init();
+
+
 }
 function gameloop() {
     //当前绘制完成后，根据机器配置设置适用的（动态间隔）来循环绘制，比setinterval，settimeout更科学
@@ -56,11 +64,13 @@ function gameloop() {
     ctx1.clearRect(0,0,canWidth,canHeight);
     mom.draw();
     // console.log(deltaTime);
+    momFruitCollision();
+
+    baby.draw();
 }
 function onMouseMove(e) {//特定函数
     if(e.offsetX||e.layerX){
-        mx=e.offsetX?e.layerX:e.layerX;//e.offsetX是否存在  全局 mom.js脚本也用
-        my=e.offsetY?e.layerY:e.layerY;
-        console.log("mouse:"+mx+","+my);
+        mx=e.offsetX==undefined?e.layerX:e.offsetX;//e.offsetX是否存在  全局 mom.js脚本也用
+        my=e.offsetY==undefined?e.layerY:e.offsetY;
     }
 }
