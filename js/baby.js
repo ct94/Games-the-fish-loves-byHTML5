@@ -14,7 +14,7 @@ var babyObj=function () {
 
     this.babyEyeTimer=0;
     this.babyEyeCount=0;
-    this.babyEyeInterval=0;
+    this.bigEyeInterval=1000;//初始化1000ms，即1000ms后眨眼睛
 
     this.babyBodyTimer=0;
     this.babyBodyCount=0;
@@ -62,20 +62,27 @@ babyObj.prototype.draw=function () {
 
     //眼睛动画
     this.babyEyeTimer+=deltaTime;//计时
-    if(this.babyEyeTimer>this.babyEyeInterval){
+    if(this.babyEyeTimer>this.bigEyeInterval){
         this.babyEyeCount=(this.babyEyeCount+1)%2;
-        this.babyEyeTimer %= this.babyEyeInterval;
+        this.babyEyeTimer %= this.bigEyeInterval;
     }
     if(this.babyEyeCount==0){
-        this.babyEyeInterval=Math.random()*1500+2000;//【2000,3500】ms
+        this.bigEyeInterval=Math.random()*1500+2000;//【2000,3500】ms
     }
     else{
-        this.babyEyeInterval=200;
+        this.bigEyeInterval=200;
     }
 
     //body动画
     this.babyBodyTimer+=deltaTime;//计时
-    if()
+    if(this.babyBodyTimer>300){
+        this.babyBodyCount=(this.babyBodyCount+1);
+        this.babyBodyTimer%=300;
+    }
+    if(this.babyBodyCount>19){
+        this.babyBodyCount=19;
+        //game over
+    }
 
 
     ctx1.save();
@@ -83,7 +90,9 @@ babyObj.prototype.draw=function () {
     ctx1.rotate(this.angle);
     //绘制顺序 画tail  body  eye
     ctx1.drawImage(this.babyTail[this.babyTailCount],-this.babyTail[this.babyTailCount].width*0.5+25,-this.babyTail[this.babyTailCount].height*0.5);
-    ctx1.drawImage(this.babyBody[0],-this.babyBody[0].width*0.5,-this.babyBody[0].height*0.5);
+
+    var bodyCount=this.babyBodyCount;
+    ctx1.drawImage(this.babyBody[bodyCount],-this.babyBody[bodyCount].width*0.5,-this.babyBody[bodyCount].height*0.5);
 
     var eyeCount=this.babyEyeCount;//临时变量
     ctx1.drawImage(this.babyEye[eyeCount],-this.babyEye[eyeCount].width*0.5,-this.babyEye[eyeCount].height*0.5);//绘制在原点（画布中心400,300）

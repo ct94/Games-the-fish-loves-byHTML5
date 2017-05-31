@@ -8,10 +8,11 @@ var bgImg=new Image();
 var ane;
 var fruit;
 var mom;
-
+var baby;
+var data;
 // var mx;//TODO bug
 // var my;//TODO bug
-var baby;
+
 document.body.onload=game;
 function game() {
     // console.log("load");
@@ -45,7 +46,10 @@ function init() {
     baby=new babyObj();
     baby.init();
 
+    data=new dataObj();
 
+    ctx1.font="30px Verdana";
+    ctx1.textAlign="center"
 }
 function gameloop() {
     //当前绘制完成后，根据机器配置设置适用的（动态间隔）来循环绘制，比setinterval，settimeout更科学
@@ -63,10 +67,11 @@ function gameloop() {
 
     ctx1.clearRect(0,0,canWidth,canHeight);
     mom.draw();
-    // console.log(deltaTime);
-    momFruitCollision();
-
     baby.draw();
+    momFruitCollision();
+    momBabyCollision();
+
+    data.draw();
 }
 function onMouseMove(e) {//特定函数
     if(e.offsetX||e.layerX){
